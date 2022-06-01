@@ -2,12 +2,11 @@
 
 
 
-
 int main()
 {
 
     // Window Variables
-   const int windowWidth{2000};
+   const int windowWidth{1800};
    const int windowHeight{1200};
 
     // Initializes Window
@@ -39,6 +38,11 @@ int main()
         ClearBackground(WHITE);
 
       DrawRectangle(pos_x, pos_y, width, height, BLUE);
+
+
+
+
+
 
 
       if (pos_y >= windowHeight - height )
