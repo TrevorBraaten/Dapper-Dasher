@@ -7,51 +7,55 @@ int main()
 {
 
     // Window Variables
-   const int window_width{1200};
-   const int window_height{800};
+   const int windowWidth{512};
+   const int windowHeight{380};
 
     // Initializes Window
-    InitWindow(window_width, window_height, "Dapper Dasher!");
+    InitWindow(windowWidth, windowHeight, "Dapper Dasher!");
+
+  // Acceleration due to gravity (pixels/frame)/frame
+    const int gravity{1};
+
 
     // Rectangle Dimensions
-    const int rec_width{200};
-    const int rec_height{100};
+    const int width{50};
+    const int height{80};
 
     // Rectangle position
-    int pos_y{600};
-    int pos_x{250};
+    int pos_y{windowHeight - height};
     int velocity{0};
-
-    
+ 
     // Sets Target FPS
     SetTargetFPS(60);
-
 
     // Game While Loop
     while (!WindowShouldClose())
     {
-
         // Game Logic Begins
         BeginDrawing();
         ClearBackground(WHITE);
 
+      DrawRectangle(windowWidth/2, pos_y, width, height, BLUE);
+      
+      if (pos_y >= windowHeight - height )
+      {
+        // Rectangle is on the ground
+        velocity = 0;
+      }
+      else
+      {
+        // Rectangle is in the air
+        velocity += gravity;
+      }
+      // Check For Jumping
+      if (IsKeyPressed(KEY_SPACE))
+      {
+        velocity -= 10;
+      }
+
+
+        // Update Position
         pos_y += velocity;
-
-      //  DrawRectangle(window_width/2, rec_pos_y, rec_width, rec_height, BLUE);
-        DrawRectangle(pos_x, pos_y, rec_width, rec_height, BLUE);
-
-        if (IsKeyPressed(KEY_SPACE))
-        {
-
-            velocity -= 10;
-
-           // pos_y -= velocity;
-          //  pos_x += velocity;
-        }
-
-
-
-
 
         EndDrawing();
 
