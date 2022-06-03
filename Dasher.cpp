@@ -89,21 +89,24 @@ int nebVel{-600};
         // Update Scarfy Position
         scarfyPos.y += velocity * dT;
 
-      // Update the running time
-        runningTime += dT;
 
-        if (runningTime >= updateTime)
+        if (!IsInAir)
         {
-          runningTime = 0;
+            // Update the running time
+          runningTime += dT;
 
-             //Update Animation Frame
-        scarfyRec.x = frame * scarfyRec.width;
-        frame++;
-        if (frame > 5)
-        {
-          frame = 0;
-        }
+          if (runningTime >= updateTime)
+          {
+            runningTime = 0;
 
+              //Update Animation Frame
+          scarfyRec.x = frame * scarfyRec.width;
+          frame++;
+          if (frame > 5)
+          {
+            frame = 0;
+          }
+          }
         }
 
 
