@@ -15,12 +15,13 @@ struct AnimData
 int main()
 {
 
-    // Window Variables
-   const int windowWidth{1600};
-   const int windowHeight{1000};
+      // Window Dimensions Array
+      int windowDimensions[2];
+      windowDimensions[0] = 512;
+      windowDimensions[1] = 380;
 
     // Initializes Window
-    InitWindow(windowWidth, windowHeight, "Dapper Dasher!");
+    InitWindow(windowDimensions[0], windowDimensions[1], "Dapper Dasher!");
 
   // Acceleration due to gravity (pixels/frame)/frame
     const int gravity{1'000};
@@ -31,7 +32,7 @@ Texture2D nebula = LoadTexture("textures/12_nebula_spritesheet.png");
 // AnimData for Nebula
 AnimData nebData {
    {0.0, 0.0, nebula.width/8, nebula.height/8}, // Rectangle Rec
-{windowWidth, windowHeight - nebula.height/8}, // Vector2 pos
+{windowDimensions[0], windowDimensions[1] - nebula.height/8}, // Vector2 pos
 0,  // int frame
 {1.0/12.0}, // float updateTime
  0 // float running time
@@ -39,7 +40,7 @@ AnimData nebData {
 
 AnimData neb2Data {
   {0.0, 0.0, nebula.width/8, nebula.height/8}, // Rectangle Rec
-  {windowWidth + 300, windowHeight - nebula.height/8},
+  {windowDimensions[0] + 300, windowDimensions[1] - nebula.height/8},
   0, // int frame
   1.0/16.0, // float running time 
   0.0
@@ -56,8 +57,8 @@ int nebVel{-300};
     scarfyData.rec.height = scarfy.height;
     scarfyData.rec.x = 0;
     scarfyData.rec.y = 0;
-    scarfyData.pos.x = windowWidth/2 - scarfyData.rec.width/2;
-    scarfyData.pos.y = windowHeight - scarfyData.rec.height;
+    scarfyData.pos.x = windowDimensions[0]/2 - scarfyData.rec.width/2;
+    scarfyData.pos.y = windowDimensions[1] - scarfyData.rec.height;
     scarfyData.frame = 0;
     scarfyData.updateTime = 1.0/12.0;
     scarfyData.runningTime = 0.0;
@@ -84,7 +85,7 @@ int nebVel{-300};
         BeginDrawing();
         ClearBackground(WHITE);
 
-      if (scarfyData.pos.y >= windowHeight - scarfyData.rec.height)
+      if (scarfyData.pos.y >= windowDimensions[1] - scarfyData.rec.height)
       {
         // Rectangle is on the ground
         velocity = 0;
