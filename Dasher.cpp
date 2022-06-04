@@ -9,8 +9,6 @@ struct AnimData
   float updateTime;
   float runningTime;
 
-
-
 };
 
 
@@ -47,25 +45,6 @@ AnimData neb2Data {
   0.0
 };
 
-
-Rectangle nebRec{0.0, 0.0, nebula.width/8, nebula.height/8};
-Vector2 nebPos{windowWidth, windowHeight - nebRec.height};
-
-Rectangle neb2Rec{0.0, 0.0, nebula.width/8, nebula.height/8};
-Vector2 neb2Pos{windowWidth + 300, windowHeight - nebRec.height};
-
-
-// Nebula Animation Variables
-int nebFrame{};
-const float nebUpdateTime{1.0/12.0};
-float nebRunningTime{0};
-
-// Nebula 2 Variables
-int neb2Frame{};
-const float neb2UpdateTime{1.0/16.0};
-float neb2RunningTime;
-
-
 // nebula x velocity (pixels/second)
 int nebVel{-300};
 
@@ -84,22 +63,7 @@ int nebVel{-300};
     scarfyData.runningTime = 0.0;
 
 
-    Rectangle scarfyRec;
-    scarfyRec.width = scarfy.width/6;
-    scarfyRec.height = scarfy.height;
-    scarfyRec.x = 0;
-    scarfyRec.y = 0; 
-    Vector2 scarfyPos;
-    scarfyPos.x = windowWidth/2 - scarfyRec.width/2;
-    scarfyPos.y = windowHeight - scarfyRec.height;
-
-
-  // Animation Frame
-  int frame{};
-  // Update Scarfys Animationn 1
-  const float updateTime {1.0/12.0};
-  // Update Animation Frame 
-  float runningTime{0};
+  
 
 
     int velocity{0};
@@ -120,7 +84,7 @@ int nebVel{-300};
         BeginDrawing();
         ClearBackground(WHITE);
 
-      if (scarfyPos.y >= windowHeight - scarfyRec.height)
+      if (scarfyData.pos.y >= windowHeight - scarfyData.rec.height)
       {
         // Rectangle is on the ground
         velocity = 0;
@@ -140,73 +104,73 @@ int nebVel{-300};
       }
 
       // Update Nebula Position
-      nebPos.x += nebVel * dT;
+      nebData.pos.x += nebVel * dT;
 
   // Update the Second Nebula's Position
-    neb2Pos.x += nebVel * dT;
+    neb2Data.pos.x += nebVel * dT;
 
 
 
 
         // Update Scarfy Position
-        scarfyPos.y += velocity * dT;
+        scarfyData.pos.y += velocity * dT;
 
   // Update Scarfy's Animation Frame
         if (!IsInAir)
         {
             // Update the running time
-          runningTime += dT;
+          scarfyData.runningTime += dT;
 
-          if (runningTime >= updateTime)
+          if (scarfyData.runningTime >= scarfyData.updateTime)
           {
-            runningTime = 0;
+            scarfyData.runningTime = 0;
 
               //Update Animation Frame
-          scarfyRec.x = frame * scarfyRec.width;
-          frame++;
-          if (frame > 5)
+          scarfyData.rec.x = scarfyData.frame * scarfyData.rec.width;
+          scarfyData.frame++;
+          if (scarfyData.frame > 5)
           {
-            frame = 0;
+            scarfyData.frame = 0;
           }
           }
         }
 
       // Update Nebula Animation Frame
-      nebRunningTime += dT;
-      if (nebRunningTime >= nebUpdateTime)
+      nebData.runningTime += dT;
+      if (nebData.runningTime >= nebData.updateTime)
       {
-        nebRunningTime = 0.0;
-        nebRec.x = nebFrame * nebRec.width;
-        nebFrame++;
-        if (nebFrame > 7)
+        nebData.runningTime = 0.0;
+        nebData.rec.x = nebData.frame * nebData.rec.width;
+        nebData.frame++;
+        if (nebData.frame > 7)
         {
-          nebFrame = 0;
+          nebData.frame = 0;
         }
       }
 
       // Update Nebula 2 Animation Frame
-      neb2RunningTime += dT;
-      if (neb2RunningTime >= neb2UpdateTime)
+      neb2Data.runningTime += dT;
+      if (neb2Data.runningTime >= neb2Data.updateTime)
       {
-        neb2RunningTime = 0.0;
-        neb2Rec.x = neb2Frame * neb2Rec.width;
-        neb2Frame++;
-        if (neb2Frame > 7)
+        neb2Data.runningTime = 0.0;
+        neb2Data.rec.x = neb2Data.frame * neb2Data.rec.width;
+        neb2Data.frame++;
+        if (neb2Data.frame > 7)
         {
-          neb2Frame = 0;
+          neb2Data.frame = 0;
         }
       }
     
 
         // Draw Nebula
-        DrawTextureRec(nebula, nebRec, nebPos, WHITE);
+        DrawTextureRec(nebula, neb2Data.rec, neb2Data.pos, WHITE);
 
         // Draw The Second Nebula
-        DrawTextureRec(nebula, neb2Rec, neb2Pos, RED);
+        DrawTextureRec(nebula, neb2Data.rec, neb2Data.pos, RED);
 
 
       // Draww Scarfy
-        DrawTextureRec(scarfy, scarfyRec, scarfyPos, WHITE);
+        DrawTextureRec(scarfy, scarfyData.rec, scarfyData.pos, WHITE);
 
 
 
