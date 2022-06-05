@@ -123,6 +123,16 @@ int nebVel{-300};
     const int jumpVel{-600};
     bool IsInAir {false};
 
+
+    Texture2D background = LoadTexture("textures/far-buildings.png");
+    float bgX{};
+
+
+
+
+
+
+
     // Sets Target FPS
     SetTargetFPS(60);
 
@@ -135,6 +145,15 @@ int nebVel{-300};
         // Game Logic Begins
         BeginDrawing();
         ClearBackground(WHITE);
+
+        bgX -= 20 * dT;
+
+      // draw the background
+      Vector2 bgPos{bgX, 0.0};
+      DrawTextureEx(background, bgPos, 0.0, 3.2, WHITE);
+
+
+
 
       if (IsOnGround(scarfyData, windowDimensions[1]))
       {
@@ -180,8 +199,6 @@ int nebVel{-300};
 
         nebulae[i] = updateAnimData(nebulae[i], dT, 7);
 
-
-
      }
 
 
@@ -198,6 +215,7 @@ int nebVel{-300};
         EndDrawing();
     }
 
+    UnloadTexture(background);
     UnloadTexture(scarfy);
     UnloadTexture(nebula);
     CloseWindow();
