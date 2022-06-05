@@ -45,8 +45,22 @@ AnimData neb2Data {
   0.0
 };
 
-AnimData nebulae[2]{nebData, neb2Data};
+AnimData nebulae[2]{};
 
+for (int i = 0; i < 2; i++)
+{
+  nebulae[i].rec.x = 0.0;
+  nebulae[i].rec.y = 0.0;
+  nebulae[i].rec.width = nebula.width/8;
+  nebulae[i].rec.height = nebula.height/8;
+  nebulae[i].pos.y = windowDimensions[1] -nebula-height/8;
+  nebulae[i].frame = 0;
+  nebulae[i].runningTime = 0.0;
+  nebulae[i].updateTime = 0.0;
+}
+
+nebulae[0].pos.x = windowDimensions[0];
+nebulae[1].pos.x = windowDimensions[0] + 300;
 
 
 // nebula x velocity (pixels/second)
@@ -165,7 +179,6 @@ int nebVel{-300};
         }
       }
     
-
         // Draw Nebula
         DrawTextureRec(nebula, nebulae[0].rec, nebulae[0].pos, WHITE);
 
@@ -175,8 +188,6 @@ int nebVel{-300};
 
       // Draww Scarfy
         DrawTextureRec(scarfy, scarfyData.rec, scarfyData.pos, WHITE);
-
-
 
         EndDrawing();
     }
