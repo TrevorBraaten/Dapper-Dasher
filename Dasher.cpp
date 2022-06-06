@@ -124,14 +124,19 @@ int nebVel{-300};
     bool IsInAir {false};
 
 
+   // Background Variable
     Texture2D background = LoadTexture("textures/far-buildings.png");
     float bgX{};
 
+    // Midground Variable
+    Texture2D midground = LoadTexture("textures/back-buildings.png");
+    float mgX{};
+    // Foreground Variable
+    Texture2D foreground = LoadTexture("textures/foreground.png");
+    float fgX{};
 
-
-
-
-
+  
+  
 
     // Sets Target FPS
     SetTargetFPS(60);
@@ -145,13 +150,47 @@ int nebVel{-300};
         // Game Logic Begins
         BeginDrawing();
         ClearBackground(WHITE);
+        
 
+        mgX -= 40 * dT;
+        fgX -= 80 * dT;
         bgX -= 20 * dT;
+        if (bgX <= -background.width*2)
+        {
+          bgX = 0.0;
+        }
+
+        if (mgX <= -midground.width*2)
+        {
+          mgX = 0.0;
+        }
+
+        if (fgX <= -foreground.width*2)
+        {
+          fgX = 0.0;
+        }
+
+
 
       // draw the background
-      Vector2 bgPos{bgX, 0.0};
-      DrawTextureEx(background, bgPos, 0.0, 3.2, WHITE);
+      Vector2 bg1Pos{bgX, 0.0};
+      DrawTextureEx(background, bg1Pos, 0.0, 3.2, WHITE);
+      Vector2 bg2Pos{bgX + background.width*2, 0.0};
+      DrawTextureEx(background, bg2Pos, 0.0, 3.2, WHITE);
+      // Draw the Midground
 
+
+
+     Vector2 mg1Pos{mgX, 0.0};
+     Vector2 mg2Pos{mgX + midground.width*2, 0.0};
+      DrawTextureEx(midground, mg1Pos, 0.0, 3.2, WHITE);
+      DrawTextureEx(midground, mg2Pos, 0.0, 3.2, WHITE);
+
+      // Draw the Foreground
+      Vector2 fg1Pos{fgX, 0.0};
+      Vector2 fg2Pos{fgX + foreground.width*2, 0.0};
+      DrawTextureEx(foreground, fg1Pos, 0.0, 3.2, WHITE);
+      DrawTextureEx(foreground, fg2Pos, 0.0, 3.2, WHITE);
 
 
 
@@ -215,6 +254,8 @@ int nebVel{-300};
         EndDrawing();
     }
 
+    UnloadTexture(foreground);
+    UnloadTexture(midground);
     UnloadTexture(background);
     UnloadTexture(scarfy);
     UnloadTexture(nebula);
