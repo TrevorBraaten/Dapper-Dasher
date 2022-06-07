@@ -79,7 +79,7 @@ AnimData neb2Data {
 
 // Size of Nebula integer
 const int sizeOfNebulae{10};
-const int distanceOfNebulae {500};
+const int distanceOfNebulae {450};
 
 AnimData nebulae[sizeOfNebulae]{};
 
